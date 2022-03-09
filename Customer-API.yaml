@@ -30,6 +30,10 @@ paths:
                     type: string
                     description: 'Indicates the status of the request (success, failure, or error)'
                     example: success
+                    enum:
+                      - success
+                      - failure
+                      - error
                   data:
                     type: object
                     required:
