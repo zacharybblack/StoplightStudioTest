@@ -28,7 +28,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: 'Indicates the status of the request (success, failure, or error)'
+                    description: Indicates whether the request completed successfully
                     example: success
                     enum:
                       - success
