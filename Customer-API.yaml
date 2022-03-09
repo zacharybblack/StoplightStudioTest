@@ -98,7 +98,7 @@ paths:
                   - status
                   - data
               examples:
-                example-1:
+                example:
                   value:
                     status: success
                     data:
