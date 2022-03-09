@@ -166,9 +166,8 @@ paths:
                 properties:
                   status:
                     type: string
-                    enum:
-                      - success
-                    description: Indicates whether or not the request was a success
+                    description: 'Indicates the status of the request (success, failure, or error)'
+                    example: success
                   data:
                     type: object
                     required:
