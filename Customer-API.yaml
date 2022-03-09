@@ -1,0 +1,289 @@
+openapi: 3.1.0
+info:
+  title: Customer API
+  version: '1.0'
+  description: ''
+servers: []
+paths:
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+  /user:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+  '/api/v1/customers/{customerId}/appeasements':
+    parameters:
+      - schema:
+          type: string
+          example: d28f2a3e-432a-454b-93c2-540ace3192bf
+        name: customerId
+        in: path
+        description: The id of a customer
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - success
+                    description: Indicates whether or not the request was a success
+                  data:
+                    type: object
+                    required:
+                      - content
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            customerId:
+                              type: string
+                              description: The ID of the customer who was given the appeasement
+                              format: uuid
+                              example: d28f2a3e-432a-454b-93c2-540ace3192bf
+                            customerEmail:
+                              type: string
+                              description: The email of the customer who received the appeasement
+                              format: email
+                              example: example@finishline.com
+                            amount:
+                              type: number
+                              example: 19.99
+                              description: The amount of the appeasement
+                            reasonCode:
+                              type: string
+                              description: A code that indicates the reason for the appeasement
+                              example: SHIP REF REQ
+                            createdByUserId:
+                              type: string
+                              description: The id of the user who created the appeasement
+                              example: C123456
+                            createdByName:
+                              type: string
+                              description: The name of the person who created the appeasement
+                              example: John Doe
+                            comments:
+                              type: string
+                              description: Comments entered by the user when the appeasement was created with additional information on why the appeasement was created
+                              example: The customer was upset that their shipment was late.
+                            orderDate:
+                              type: string
+                              description: The order date (ISO 8601) of the order this appeasement is associated with
+                              format: date
+                              example: '2020-02-05'
+                            orderNumber:
+                              type: string
+                              description: The order number of the order this appeasement is associated with
+                              example: FNL-CO-123456789
+                            createdDateTime:
+                              type: string
+                              description: A timestamp (ISO 8601) that indicates when the appeasement was created
+                              format: date-time
+                              example: '2022-03-03T15:27:37.375Z'
+                          required:
+                            - customerEmail
+                            - amount
+                            - orderDate
+                            - orderNumber
+                            - createdDateTime
+                required:
+                  - status
+                  - data
+              examples:
+                example-1:
+                  value: {}
+      operationId: get-api-v1-customers-customerId-appeasements
+      description: Get a list of appeasements associated with the customer
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+    Appeasement:
+      title: Appeasement
+      type: object
+      examples:
+        - '': string
+      properties:
+        createdDateTime:
+          type: string
+  securitySchemes: {}
