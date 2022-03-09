@@ -154,7 +154,7 @@ paths:
         description: The id of a customer
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get Appeasements By Customer ID
       tags: []
       responses:
         '200':
@@ -234,8 +234,7 @@ paths:
                   - data
               examples:
                 example-1:
-                  value: {
-                  }
+                  value: {}
       operationId: get-api-v1-customers-customerId-appeasements
       description: Get a list of appeasements associated with the customer
 components:
