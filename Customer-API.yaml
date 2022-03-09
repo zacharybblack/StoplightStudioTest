@@ -3,6 +3,7 @@ info:
   title: Customer API
   version: '1.0'
   description: ''
+  summary: Read and Update Data Related to Customers
 servers: []
 paths:
   '/users/{userId}':
@@ -278,12 +279,4 @@ components:
         - lastName
         - email
         - emailVerified
-    Appeasement:
-      title: Appeasement
-      type: object
-      examples:
-        - '': string
-      properties:
-        createdDateTime:
-          type: string
   securitySchemes: {}
