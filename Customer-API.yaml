@@ -113,10 +113,6 @@ paths:
                           orderDate: '2020-02-05'
                           orderNumber: FNL-CO-123456789
                           createdDateTime: '2022-03-03T15:27:37.375Z'
-            application/xml:
-              schema:
-                type: object
-                properties: {}
       operationId: get-api-v1-customers-customerId-appeasements
       description: Get a list of appeasements associated with the customer
       parameters:
