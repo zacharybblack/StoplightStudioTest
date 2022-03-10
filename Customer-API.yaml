@@ -13,7 +13,7 @@ paths:
           example: d28f2a3e-432a-454b-93c2-540ace3192bf
         name: customerId
         in: path
-        description: The id of a customer
+        description: The id of the customer the appeasements are associated to
         required: true
     get:
       summary: Get Appeasements By Customer ID
@@ -68,11 +68,11 @@ paths:
                               example: C123456
                             createdByName:
                               type: string
-                              description: The name of the person who created the appeasement
+                              description: The full name of the person who created the appeasement
                               example: John Doe
                             comments:
                               type: string
-                              description: Comments entered by the user when the appeasement was created with additional information on why the appeasement was created
+                              description: Comments entered by the user when the appeasement was created with additional information as to why the appeasement was created
                               example: The customer was upset that their shipment was late.
                             orderDate:
                               type: string
@@ -119,6 +119,28 @@ paths:
                 properties: {}
       operationId: get-api-v1-customers-customerId-appeasements
       description: Get a list of appeasements associated with the customer
+      parameters:
+        - schema:
+            type: string
+            example: '5'
+            default: '0'
+          in: query
+          name: page
+          description: The 0 based index of the page to return
+        - schema:
+            type: string
+            example: '10'
+            default: '20'
+          in: query
+          name: pageSize
+          description: The max number of appeasements to return
+        - schema:
+            type: string
+            default: 'createdDateTime,asc'
+            example: 'amount,desc'
+          in: query
+          name: sort
+          description: The column and direction to sort the appeasements by (multiple sort criteria are supported)
 components:
   schemas: {}
   securitySchemes: {}
