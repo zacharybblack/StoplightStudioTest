@@ -137,13 +137,7 @@ paths:
           in: query
           name: sort
           description: The column and direction to sort the appeasements by (multiple sort criteria are supported)
-  /api/v1/loyalty-accounts:
-    get:
-      summary: Test Endpoint
-      tags: []
-      responses: {}
-      operationId: get-api-v1-loyalty-accounts
-      description: ''
+  /api/v1/loyalty-accounts: {}
 components:
   schemas: {}
   securitySchemes: {}
